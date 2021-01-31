@@ -1,0 +1,57 @@
+/* **********************************
+Subarray with given sum - sliding window
+************************************/
+#include <iostream>
+using namespace std;
+
+/* Returns true if the there is a subarray of
+arr[] with a sum equal to 'reqdSum' otherwise
+returns false. Also, prints the result */
+int subArraySum(int arr[], int n, int reqdSum)
+{
+
+	int currSum = 0, start = 0, i;
+
+	/* Add elements one by one to currSum and
+	if the currSum exceeds the sum,
+	then remove starting element */
+	for (i = 0; i < n; i++)
+	{
+	    currSum += arr[i];
+
+		// If currSum exceeds the reqdSum,
+		// then remove the starting elements
+		while (currSum > reqdSum && start <= i )
+		{
+			currSum = currSum - arr[start];
+			start++;
+		}
+
+		// If currSum  equal to reqdSum return true and print indexes
+		if (currSum == reqdSum)
+		{
+			cout << "Sum found between indexes "
+				<< start << " and " << i;
+			return 1;
+		}
+
+	}
+
+	// If we reach here,  no subarray foundsubarry with given sum
+	cout << "No subarray found matching the given sum";
+	return 0;
+}
+
+// Driver Code
+int main()
+{
+	int arr[] = {77,3,4,99,8,4};
+	int n = sizeof(arr) / sizeof(arr[0]);
+	int reqdSum = 12;
+	subArraySum(arr, n, reqdSum);
+	return 0;
+}
+
+
+
+
